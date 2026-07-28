@@ -1,0 +1,33 @@
+name: Desplegar PHP a Azure
+
+on:
+  push:
+    branches:
+      - main # Cambia a master si tu rama principal se llama así
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Descargar el código del repositorio
+    - name: Checkout GitHub Action
+      uses: actions/checkout@v4
+
+    # 2. Configurar la versión de PHP
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2' # Cambia a tu versión de PHP (8.1, 8.3, etc.)
+
+    # 3. Instalar dependencias (Opcional)
+    # Descomenta las dos líneas de abajo si usas Composer
+    # - name: Install Composer dependencies
+    #   run: composer install --prefer-dist --no-progress --no-suggest
+
+    # 4. Desplegar a Azure App Service
+    - name: 'Deploy to Azure Web App'
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: 'AppMoodle' # Escribe aquí el nombre exacto de tu Azure App Service
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
