@@ -31,3 +31,4 @@ jobs:
       with:
         app-name: 'AppMoodle' # Escribe aquí el nombre exacto de tu Azure App Service
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        
